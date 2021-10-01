@@ -53,7 +53,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         """Retrieve short name of the user"""
         last_name = self.last_name
         first_name = self.first_name
-        if(not (last_name and last_name.isSpace())):
+        if(not (last_name and not last_name.isspace())):
             """ If last name is empty or none then return first name"""
             return first_name
         else : 
