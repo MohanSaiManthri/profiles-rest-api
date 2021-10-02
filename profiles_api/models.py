@@ -7,11 +7,11 @@ from django.contrib.auth.models import BaseUserManager
 class UserProfileManager(BaseUserManager):
     """ Manager for user profiles """
 
-    def create_user(self, email, first_name, last_name = None, password=None):
+    def create_user(self, email, first_name, last_name=None, password=None):
         """ Creates a new user profile """
         if not email:
             raise ValueError('User must have an email-address')
-        
+
         email = self.normalize_email(email)
         user = self.model(email=email, first_name=first_name, last_name=last_name)
 
@@ -20,7 +20,7 @@ class UserProfileManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, first_name, password, last_name = None):
+    def create_superuser(self, email, first_name, password, last_name=None):
         """ Create and save a new superuser with given details"""
         user = self.create_user(email, first_name, last_name=last_name, password=password)
 
@@ -29,7 +29,6 @@ class UserProfileManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
-
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
@@ -53,16 +52,12 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         """Retrieve short name of the user"""
         last_name = self.last_name
         first_name = self.first_name
-        if(not (last_name and not last_name.isspace())):
+        if (not (last_name and not last_name.isspace())):
             """ If last name is empty or none then return first name"""
             return first_name
-        else : 
+        else:
             return last_name
-        
+
     def __str__(self):
         """Return string representation of the user"""
-        return self.email       
-    
-    
-
-
+        return self.email
